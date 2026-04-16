@@ -46,7 +46,8 @@ Or download as ZIP from the [releases page](https://github.com/VictorLavalle/spa
 ---
 
 ## Usage
-<img width="802" height="507" alt="image" src="https://github.com/user-attachments/assets/4f30e18e-e478-4bdf-905b-994d4947a610" />
+<img width="444" height="331" alt="image" src="https://github.com/user-attachments/assets/bb631ab0-02f9-4b9c-bac1-e71ab894628b" />
+
 
 
 ### macOS / Linux

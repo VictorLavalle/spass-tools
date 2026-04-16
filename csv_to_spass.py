@@ -140,9 +140,15 @@ def main():
         else:
             csv_path = input("  CSV file path: ").strip().strip("'\"")
 
-        spass_path = input("  Output .spass path [output.spass]: ").strip().strip("'\"")
-        if not spass_path:
-            spass_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'output.spass')
+        default_spass = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'output.spass')
+        print(f"  Default output: {default_spass}")
+        print(f"    1. Save here (press Enter)")
+        print(f"    2. Choose a different location")
+        choice = input("  Select [1]: ").strip()
+        if choice == '2':
+            spass_path = input("  Output .spass path: ").strip().strip("'\"")
+        else:
+            spass_path = default_spass
 
     if not os.path.isfile(csv_path):
         print(f"\n  File not found: {csv_path}")

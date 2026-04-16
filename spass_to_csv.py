@@ -67,6 +67,34 @@ def spass_to_csv(spass_path, csv_path, password):
     print(f"\n  Done! {len(rows)} passwords decrypted.")
     print(f"  Output: {csv_path}\n")
 
+def open_file_dialog(title, filetypes):
+    """Open a native file picker dialog. Returns path or empty string."""
+    try:
+        import tkinter as tk
+        from tkinter import filedialog
+        root = tk.Tk()
+        root.withdraw()
+        root.attributes('-topmost', True)
+        path = filedialog.askopenfilename(title=title, filetypes=filetypes)
+        root.destroy()
+        return path
+    except:
+        return ''
+
+def save_file_dialog(title, filetypes, defaultext):
+    """Open a native save file dialog. Returns path or empty string."""
+    try:
+        import tkinter as tk
+        from tkinter import filedialog
+        root = tk.Tk()
+        root.withdraw()
+        root.attributes('-topmost', True)
+        path = filedialog.asksaveasfilename(title=title, filetypes=filetypes, defaultextension=defaultext)
+        root.destroy()
+        return path
+    except:
+        return ''
+
 def find_spass_files():
     """Find .spass files in the script's directory."""
     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -88,27 +116,40 @@ def main():
             print(f"  Found: {spass_files[0]}")
             use = input("  Use this file? (Y/n): ").strip().lower()
             if use and use != 'y':
-                spass_path = input("\n  .spass file path: ").strip().strip("'\"")
+                spass_path = open_file_dialog("Select .spass file", [("Samsung Pass", "*.spass"), ("All files", "*.*")])
+                if not spass_path:
+                    spass_path = input("\n  .spass file path: ").strip().strip("'\"")
         elif len(spass_files) > 1:
             print("  Found multiple .spass files:\n")
             for i, f in enumerate(spass_files, 1):
                 print(f"     {i}. {f}")
-            choice = input(f"\n  Select (1-{len(spass_files)}): ").strip()
-            try:
-                spass_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), spass_files[int(choice) - 1])
-            except (ValueError, IndexError):
+            print(f"     {len(spass_files)+1}. Browse for a different file...")
+            choice = input(f"\n  Select (1-{len(spass_files)+1}): ").strip()
+            idx = int(choice) if choice.isdigit() else 0
+            if idx == len(spass_files) + 1:
+                spass_path = open_file_dialog("Select .spass file", [("Samsung Pass", "*.spass"), ("All files", "*.*")])
+                if not spass_path:
+                    spass_path = input("\n  .spass file path: ").strip().strip("'\"")
+            elif 1 <= idx <= len(spass_files):
+                spass_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), spass_files[idx - 1])
+            else:
                 print("\n  Invalid selection.")
                 sys.exit(1)
         else:
-            spass_path = input("  .spass file path: ").strip().strip("'\"")
+            print("  No .spass files found in this folder.")
+            spass_path = open_file_dialog("Select .spass file", [("Samsung Pass", "*.spass"), ("All files", "*.*")])
+            if not spass_path:
+                spass_path = input("  .spass file path: ").strip().strip("'\"")
 
         default_csv = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'passwords.csv')
-        print(f"  Default output: {default_csv}")
+        print(f"\n  Default output: {default_csv}")
         print(f"    1. Save here (press Enter)")
         print(f"    2. Choose a different location")
         choice = input("  Select [1]: ").strip()
         if choice == '2':
-            csv_path = input("  Output CSV path: ").strip().strip("'\"")
+            csv_path = save_file_dialog("Save CSV file", [("CSV", "*.csv")], ".csv")
+            if not csv_path:
+                csv_path = input("  Output CSV path: ").strip().strip("'\"")
         else:
             csv_path = default_csv
 

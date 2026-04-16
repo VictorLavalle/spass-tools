@@ -5,7 +5,7 @@
 If you discover a security vulnerability in spass-tools, please report it responsibly:
 
 1. **Do not** open a public issue
-2. Email **[your-email]** with a description of the vulnerability
+2. Open a [private security advisory](https://github.com/VictorLavalle/spass-tools/security/advisories/new) with a description of the vulnerability
 3. Include steps to reproduce if possible
 
 You should receive a response within 48 hours.

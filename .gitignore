@@ -3,6 +3,7 @@
 __pycache__/
 *.pyc
 .DS_Store
+.venv/
 
 # Allow example files
 !examples/*.spass

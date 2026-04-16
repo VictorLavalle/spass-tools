@@ -12,11 +12,15 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
-python -c "import cryptography" 2>nul
-if %errorlevel% neq 0 (
+if not exist ".venv" (
     echo.
-    echo   Installing dependencies...
+    echo   Setting up virtual environment...
+    python -m venv .venv
+    call .venv\Scripts\activate.bat
     pip install -r requirements.txt -q
+    echo   Done.
+) else (
+    call .venv\Scripts\activate.bat
 )
 
 python scripts\csv_to_spass.py %*

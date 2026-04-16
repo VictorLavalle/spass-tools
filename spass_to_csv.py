@@ -67,14 +67,40 @@ def spass_to_csv(spass_path, csv_path, password):
     print(f"\n  Done! {len(rows)} passwords decrypted.")
     print(f"  Output: {csv_path}\n")
 
+def find_spass_files():
+    """Find .spass files in the script's directory."""
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    return sorted(f for f in os.listdir(script_dir) if f.endswith('.spass'))
+
 def main():
     print("\n=== Samsung Pass (.spass) to CSV Converter ===\n")
 
     if len(sys.argv) >= 3:
         spass_path, csv_path = sys.argv[1], sys.argv[2]
     else:
-        spass_path = input("  .spass file path: ").strip().strip("'\"")
-        csv_path = input("  Output CSV file path: ").strip().strip("'\"")
+        spass_files = find_spass_files()
+        if len(spass_files) == 1:
+            spass_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), spass_files[0])
+            print(f"  Found: {spass_files[0]}")
+            use = input("  Use this file? (Y/n): ").strip().lower()
+            if use and use != 'y':
+                spass_path = input("  .spass file path: ").strip().strip("'\"")
+        elif len(spass_files) > 1:
+            print("  Found multiple .spass files:")
+            for i, f in enumerate(spass_files, 1):
+                print(f"    {i}. {f}")
+            choice = input(f"  Select (1-{len(spass_files)}): ").strip()
+            try:
+                spass_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), spass_files[int(choice) - 1])
+            except (ValueError, IndexError):
+                print("\n  Error: Invalid selection.")
+                sys.exit(1)
+        else:
+            spass_path = input("  .spass file path: ").strip().strip("'\"")
+
+        csv_path = input("  Output CSV file path [passwords.csv]: ").strip().strip("'\"")
+        if not csv_path:
+            csv_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'passwords.csv')
 
     if not os.path.isfile(spass_path):
         print(f"\n  Error: File not found: {spass_path}")

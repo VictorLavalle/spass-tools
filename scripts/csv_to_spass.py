@@ -149,7 +149,7 @@ def save_file_dialog(title, filetypes, defaultext, initialfile=''):
 
 def find_csv_files():
     """Find .csv files in the script's directory."""
-    script_dir = os.path.dirname(os.path.abspath(__file__))
+    script_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     return sorted(f for f in os.listdir(script_dir) if f.endswith('.csv'))
 
 def main():
@@ -164,7 +164,7 @@ def main():
     else:
         csv_files = find_csv_files()
         if len(csv_files) == 1:
-            csv_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), csv_files[0])
+            csv_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), csv_files[0])
             print(f"  Found: {csv_files[0]}")
             use = input("  Use this file? (Y/n): ").strip().lower()
             if use and use != 'y':
@@ -183,7 +183,7 @@ def main():
                 if not csv_path:
                     csv_path = input("\n  CSV file path: ").strip().strip("'\"")
             elif 1 <= idx <= len(csv_files):
-                csv_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), csv_files[idx - 1])
+                csv_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), csv_files[idx - 1])
             else:
                 print("\n  Invalid selection.")
                 sys.exit(1)
@@ -193,7 +193,7 @@ def main():
             if not csv_path:
                 csv_path = input("  CSV file path: ").strip().strip("'\"")
 
-        default_spass = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'output.spass')
+        default_spass = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'output.spass')
         print(f"\n  Default output: {default_spass}")
         print(f"    1. Save here (press Enter)")
         print(f"    2. Choose a different location")

@@ -2,7 +2,6 @@
 # Samsung Pass (.spass) Tools (macOS/Linux)
 cd "$(dirname "$0")"
 
-# Check Python
 if ! command -v python3 &> /dev/null; then
     echo ""
     echo "  Python 3 is not installed."
@@ -12,7 +11,6 @@ if ! command -v python3 &> /dev/null; then
     exit 1
 fi
 
-# Install dependencies if needed
 python3 -c "import cryptography" 2>/dev/null || {
     echo ""
     echo "  Installing dependencies..."

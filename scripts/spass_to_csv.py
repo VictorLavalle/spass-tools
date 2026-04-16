@@ -96,9 +96,9 @@ def save_file_dialog(title, filetypes, defaultext, initialfile=''):
         return ''
 
 def find_spass_files():
-    """Find .spass files in the script's directory."""
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    return sorted(f for f in os.listdir(script_dir) if f.endswith('.spass'))
+    """Find .spass files in the project root directory."""
+    root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    return sorted(f for f in os.listdir(root_dir) if f.endswith('.spass'))
 
 def main():
     print("")
@@ -112,7 +112,7 @@ def main():
     else:
         spass_files = find_spass_files()
         if len(spass_files) == 1:
-            spass_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), spass_files[0])
+            spass_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), spass_files[0])
             print(f"  Found: {spass_files[0]}")
             use = input("  Use this file? (Y/n): ").strip().lower()
             if use and use != 'y':
@@ -131,7 +131,7 @@ def main():
                 if not spass_path:
                     spass_path = input("\n  .spass file path: ").strip().strip("'\"")
             elif 1 <= idx <= len(spass_files):
-                spass_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), spass_files[idx - 1])
+                spass_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), spass_files[idx - 1])
             else:
                 print("\n  Invalid selection.")
                 sys.exit(1)
@@ -141,7 +141,7 @@ def main():
             if not spass_path:
                 spass_path = input("  .spass file path: ").strip().strip("'\"")
 
-        default_csv = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'passwords.csv')
+        default_csv = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'passwords.csv')
         print(f"\n  Default output: {default_csv}")
         print(f"    1. Save here (press Enter)")
         print(f"    2. Choose a different location")

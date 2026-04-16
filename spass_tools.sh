@@ -25,4 +25,3 @@ else
 fi
 
 python3 spass_tools.py
-read -p "  Press Enter to exit..."

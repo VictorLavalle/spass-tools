@@ -71,6 +71,20 @@ def build_password_row(idx, url, username, password, title, notes, otp):
     ]
     return ';'.join(b64e(f) for f in fields)
 
+def validate_password(password):
+    """Validate password meets Samsung Pass requirements:
+    At least 8 characters, including at least 3 of: uppercase, lowercase, numbers, special chars."""
+    if len(password) < 8:
+        return False, "Password must be at least 8 characters."
+    categories = 0
+    if any(c.isupper() for c in password): categories += 1
+    if any(c.islower() for c in password): categories += 1
+    if any(c.isdigit() for c in password): categories += 1
+    if any(c in '!@#$%^&*?' for c in password): categories += 1
+    if categories < 3:
+        return False, "Password must include at least 3 of: uppercase, lowercase, numbers, special characters (!@#$%^&*?)."
+    return True, ""
+
 def csv_to_spass(csv_path, spass_path, password):
     """Read a CSV file and encrypt it into .spass format."""
     with open(csv_path, newline='', encoding='utf-8-sig') as f:
@@ -206,6 +220,11 @@ def main():
 
     if not password:
         print("\n  Password cannot be empty.")
+        sys.exit(1)
+
+    valid, msg = validate_password(password)
+    if not valid:
+        print(f"\n  {msg}")
         sys.exit(1)
 
     print("\n  Encrypting...")

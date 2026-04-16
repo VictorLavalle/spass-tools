@@ -20,13 +20,22 @@ Or download as ZIP from the [releases page](https://github.com/VictorLavalle/spa
 ## Exporting from Samsung Pass
 
 1. Open the **Samsung Wallet** app on your phone
-2. Tap the **⋮** (three dots) button in the top-right corner
-3. Tap **Settings**
-4. Tap **Import and export Samsung Pass data**
-5. Select **Export** and set a password — this generates the `.spass` file
-6. Transfer the `.spass` file to your computer
+<img width="270" alt="image" src="https://github.com/user-attachments/assets/9f10f5d7-2319-4d13-a4ff-e7e311240616" />
 
-<!-- TODO: Add screenshots -->
+2. Tap the **⋮** (three dots) button in the top-right corner
+<img width="270" alt="image" src="https://github.com/user-attachments/assets/40a8eee2-6622-4970-8371-b04c7982e206" />
+
+3. Tap **Settings**
+<img width="270" alt="image" src="https://github.com/user-attachments/assets/b4b67fe1-b0a4-4690-8f3d-12f809ede581" />
+
+4. Tap **Import and export Samsung Pass data**
+<img width="270" alt="image" src="https://github.com/user-attachments/assets/fa82956c-69be-4efc-b920-372b4a72df18" />
+
+5. Select **Export** and set a password — this generates the `.spass` file
+<img width="270" alt="image" src="https://github.com/user-attachments/assets/1b020dae-0a78-4b37-8099-5fbd82a6a7ea" /> <img width="270" alt="image" src="https://github.com/user-attachments/assets/94424b5a-d4cc-4eea-8910-ce958e326461" />
+
+6. Transfer the `.spass` file to your computer
+<img width="400" alt="image" src="https://github.com/user-attachments/assets/04c1a230-6066-41c5-90d2-46a74567fad3" />
 
 ---
 

@@ -102,8 +102,8 @@ def csv_to_spass(csv_path, spass_path, password):
     with open(spass_path, 'wb') as f:
         f.write(encrypted)
 
-    print(f"\n  ✅ Done! {count} passwords encrypted.")
-    print(f"  📄 Output: {spass_path}\n")
+    print(f"\n  Done! {count} passwords encrypted.")
+    print(f"  Output: {spass_path}\n")
 
 def find_csv_files():
     """Find .csv files in the script's directory."""
@@ -113,7 +113,7 @@ def find_csv_files():
 def main():
     print("")
     print("  ╔══════════════════════════════════════════════╗")
-    print("  ║   🔒 CSV → Samsung Pass (.spass) Converter   ║")
+    print("  ║   CSV → Samsung Pass (.spass) Converter   ║")
     print("  ╚══════════════════════════════════════════════╝")
     print("")
 
@@ -123,45 +123,45 @@ def main():
         csv_files = find_csv_files()
         if len(csv_files) == 1:
             csv_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), csv_files[0])
-            print(f"  📁 Found: {csv_files[0]}")
+            print(f"  Found: {csv_files[0]}")
             use = input("  Use this file? (Y/n): ").strip().lower()
             if use and use != 'y':
-                csv_path = input("\n  📂 CSV file path: ").strip().strip("'\"")
+                csv_path = input("\n  CSV file path: ").strip().strip("'\"")
         elif len(csv_files) > 1:
-            print("  📁 Found multiple CSV files:\n")
+            print("  Found multiple CSV files:\n")
             for i, f in enumerate(csv_files, 1):
                 print(f"     {i}. {f}")
             choice = input(f"\n  Select (1-{len(csv_files)}): ").strip()
             try:
                 csv_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), csv_files[int(choice) - 1])
             except (ValueError, IndexError):
-                print("\n  ❌ Invalid selection.")
+                print("\n  Invalid selection.")
                 sys.exit(1)
         else:
-            csv_path = input("  📂 CSV file path: ").strip().strip("'\"")
+            csv_path = input("  CSV file path: ").strip().strip("'\"")
 
-        spass_path = input("  📄 Output .spass path [output.spass]: ").strip().strip("'\"")
+        spass_path = input("  Output .spass path [output.spass]: ").strip().strip("'\"")
         if not spass_path:
             spass_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'output.spass')
 
     if not os.path.isfile(csv_path):
-        print(f"\n  ❌ File not found: {csv_path}")
+        print(f"\n  File not found: {csv_path}")
         sys.exit(1)
 
     if len(sys.argv) >= 4:
         password = sys.argv[3]
     else:
-        password = getpass.getpass("  🔑 Encryption password: ")
-        confirm = getpass.getpass("  🔑 Confirm password: ")
+        password = getpass.getpass("  Encryption password: ")
+        confirm = getpass.getpass("  Confirm password: ")
         if password != confirm:
-            print("\n  ❌ Passwords don't match.")
+            print("\n  Passwords don't match.")
             sys.exit(1)
 
     if not password:
-        print("\n  ❌ Password cannot be empty.")
+        print("\n  Password cannot be empty.")
         sys.exit(1)
 
-    print("\n  ⏳ Encrypting...")
+    print("\n  Encrypting...")
     csv_to_spass(csv_path, spass_path, password)
 
 if __name__ == '__main__':

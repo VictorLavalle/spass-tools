@@ -2,6 +2,9 @@
 """Samsung Pass (.spass) converter - encrypt and decrypt passwords."""
 import sys, os
 
+# Add scripts directory to path
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'scripts'))
+
 def main():
     print("")
     print("  ╔══════════════════════════════════════════════╗")
@@ -14,8 +17,6 @@ def main():
     print("    2. Encrypt CSV to .spass")
     print("")
     choice = input("  Select (1-2): ").strip()
-
-    script_dir = os.path.dirname(os.path.abspath(__file__))
 
     if choice == '1':
         from spass_to_csv import main as decrypt_main

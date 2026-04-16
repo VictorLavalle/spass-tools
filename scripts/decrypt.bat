@@ -1,13 +1,11 @@
 @echo off
 REM Decrypt a Samsung Pass .spass file to CSV (Windows)
-cd /d "%~dp0"
-echo.
-echo === Samsung Pass (.spass) to CSV Converter ===
-echo.
+cd /d "%~dp0\.."
 
 where python >nul 2>nul
 if %errorlevel% neq 0 (
-    echo   Error: Python is not installed.
+    echo.
+    echo   Python is not installed.
     echo   Install it from https://www.python.org/downloads/
     echo.
     pause
@@ -16,10 +14,11 @@ if %errorlevel% neq 0 (
 
 python -c "import cryptography" 2>nul
 if %errorlevel% neq 0 (
+    echo.
     echo   Installing dependencies...
     pip install -r requirements.txt -q
 )
 
-python spass_to_csv.py %*
+python scripts\spass_to_csv.py %*
 echo.
 pause

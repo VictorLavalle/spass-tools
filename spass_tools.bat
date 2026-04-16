@@ -17,6 +17,7 @@ if not exist ".venv" (
     echo   Setting up virtual environment...
     python -m venv .venv
     call .venv\Scripts\activate.bat
+    pip install --upgrade pip -q
     pip install -r requirements.txt -q
     echo   Done.
 ) else (

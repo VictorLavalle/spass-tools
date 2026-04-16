@@ -96,16 +96,17 @@ def csv_to_spass(csv_path, spass_path, password):
         sys.exit(1)
 
     # Auto-detect column names (support multiple CSV formats)
+    # Supported: Apple Passwords, Google/Chrome/Brave, LastPass, Bitwarden, 1Password
     cols = list(rows[0].keys())
     col_map = {}
     for key in cols:
         k = key.strip().lower()
-        if k in ('title', 'name'):       col_map['title'] = key
-        elif k == 'url':                  col_map['url'] = key
-        elif k in ('username', 'user'):   col_map['username'] = key
-        elif k in ('password', 'pass'):   col_map['password'] = key
-        elif k in ('notes', 'note'):      col_map['notes'] = key
-        elif k in ('otpauth', 'otp'):     col_map['otp'] = key
+        if k in ('title', 'name'):                          col_map['title'] = key
+        elif k in ('url', 'login_uri'):                     col_map['url'] = key
+        elif k in ('username', 'user', 'login_username'):   col_map['username'] = key
+        elif k in ('password', 'pass', 'login_password'):   col_map['password'] = key
+        elif k in ('notes', 'note', 'extra'):               col_map['notes'] = key
+        elif k in ('otpauth', 'otp', 'login_totp'):         col_map['otp'] = key
 
     if 'password' not in col_map:
         print(f"\n  Could not find a password column in: {cols}")

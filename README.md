@@ -116,8 +116,10 @@ The tool auto-detects columns from the most common password managers:
 |--------|---------|
 | Apple Passwords (Mac) | `Title,URL,Username,Password,Notes,OTPAuth` |
 | Google Passwords | `name,url,username,password,note` |
-| Chrome | `name,url,username,password,note` |
-| Brave | `name,url,username,password,note` |
+| Chrome / Brave | `name,url,username,password,note` |
+| LastPass | `url,username,password,extra,name,grouping,fav` |
+| Bitwarden | `folder,favorite,type,name,notes,fields,reprompt,login_uri,login_username,login_password,login_totp` |
+| 1Password | `Title,Url,Username,Password,Notes,Type` |
 
 Any CSV with similar column names will work — the tool matches columns case-insensitively.
 

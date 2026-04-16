@@ -1,0 +1,4 @@
+url,username,password,extra,name,grouping,fav
+https://example.com/,user@example.com,REPLACE_ME,,Google Account,Email,0
+https://example.com/,user@example.com,REPLACE_ME,,Netflix,Entertainment,0
+https://example.com/,testuser,REPLACE_ME,Test account,GitHub,Development,1

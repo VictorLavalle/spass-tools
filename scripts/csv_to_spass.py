@@ -213,6 +213,8 @@ def main():
             csv_path = open_file_dialog("Select CSV file", [("CSV", "*.csv"), ("All files", "*.*")])
             if not csv_path:
                 csv_path = input("  CSV file path: ").strip().strip("'\"")
+            else:
+                print(f"  Selected: {csv_path}")
 
         default_spass = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'output.spass')
         print(f"\n  Default output: {default_spass}")
@@ -223,6 +225,8 @@ def main():
             spass_path = save_file_dialog("Save .spass file", [("Samsung Pass", "*.spass")], ".spass", "output.spass")
             if not spass_path:
                 spass_path = input("  Output .spass path: ").strip().strip("'\"")
+            else:
+                print(f"  Selected: {spass_path}")
         else:
             spass_path = default_spass
 
@@ -233,6 +237,11 @@ def main():
     if len(sys.argv) >= 4:
         password = sys.argv[3]
     else:
+        print("")
+        print("  Password requirements (Samsung Pass):")
+        print("    - At least 8 characters")
+        print("    - At least 3 of: uppercase, lowercase, numbers, special (!@#$%^&*?)")
+        print("")
         password = getpass.getpass("  Encryption password: ")
         confirm = getpass.getpass("  Confirm password: ")
         if password != confirm:

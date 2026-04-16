@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Decrypt a Samsung Pass .spass file to CSV."""
 import csv, sys, os, base64, hashlib, getpass
+os.environ['TK_SILENCE_DEPRECATION'] = '1'
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.primitives import padding
 

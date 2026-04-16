@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Convert a CSV password file to Samsung Pass .spass format."""
 import csv, os, sys, base64, hashlib, time, getpass
+os.environ['TK_SILENCE_DEPRECATION'] = '1'
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.primitives import padding
 
@@ -90,17 +91,37 @@ def csv_to_spass(csv_path, spass_path, password):
     with open(csv_path, newline='', encoding='utf-8-sig') as f:
         rows = list(csv.DictReader(f))
 
+    if not rows:
+        print("\n  No rows found in CSV.")
+        sys.exit(1)
+
+    # Auto-detect column names (support multiple CSV formats)
+    cols = list(rows[0].keys())
+    col_map = {}
+    for key in cols:
+        k = key.strip().lower()
+        if k in ('title', 'name'):       col_map['title'] = key
+        elif k == 'url':                  col_map['url'] = key
+        elif k in ('username', 'user'):   col_map['username'] = key
+        elif k in ('password', 'pass'):   col_map['password'] = key
+        elif k in ('notes', 'note'):      col_map['notes'] = key
+        elif k in ('otpauth', 'otp'):     col_map['otp'] = key
+
+    if 'password' not in col_map:
+        print(f"\n  Could not find a password column in: {cols}")
+        sys.exit(1)
+
     header = '_id;origin_url;action_url;username_element;username_value;id_tz_enc;password_element;password_value;pw_tz_enc;host_url;ssl_valid;preferred;blacklisted_by_user;use_additional_auth;cm_api_support;created_time;modified_time;title;favicon;source_type;app_name;package_name;package_signature;reserved_1;reserved_2;reserved_3;reserved_4;reserved_5;reserved_6;reserved_7;reserved_8;credential_memo;otp;root_id;parent_id'
 
     lines = ['30', 'true;false;false;false', 'false', 'next_table', header]
     count = 0
     for i, r in enumerate(rows, 1):
-        url = r.get('URL', '').strip()
-        username = r.get('Username', '').strip()
-        pwd = r.get('Password', '').strip()
-        title = r.get('Title', '').strip()
-        notes = r.get('Notes', '').strip()
-        otp = r.get('OTPAuth', '').strip()
+        url = r.get(col_map.get('url', ''), '').strip()
+        username = r.get(col_map.get('username', ''), '').strip()
+        pwd = r.get(col_map.get('password', ''), '').strip()
+        title = r.get(col_map.get('title', ''), '').strip()
+        notes = r.get(col_map.get('notes', ''), '').strip()
+        otp = r.get(col_map.get('otp', ''), '').strip()
         if not pwd:
             continue
         if not notes:

@@ -25,4 +25,3 @@ if not exist ".venv" (
 )
 
 python spass_tools.py
-pause

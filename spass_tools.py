@@ -5,7 +5,7 @@ import sys, os
 # Add scripts directory to path
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'scripts'))
 
-def main():
+def menu():
     print("")
     print("  ╔══════════════════════════════════════════════╗")
     print("  ║         Samsung Pass (.spass) Tools          ║")
@@ -15,18 +15,24 @@ def main():
     print("")
     print("    1. Decrypt .spass to CSV")
     print("    2. Encrypt CSV to .spass")
+    print("    3. Exit")
     print("")
-    choice = input("  Select (1-2): ").strip()
+    return input("  Select (1-3): ").strip()
 
-    if choice == '1':
-        from spass_to_csv import main as decrypt_main
-        decrypt_main()
-    elif choice == '2':
-        from csv_to_spass import main as encrypt_main
-        encrypt_main()
-    else:
-        print("\n  Invalid selection.")
-        sys.exit(1)
+def main():
+    while True:
+        choice = menu()
+        if choice == '1':
+            from spass_to_csv import main as decrypt_main
+            decrypt_main()
+        elif choice == '2':
+            from csv_to_spass import main as encrypt_main
+            encrypt_main()
+        elif choice == '3':
+            print("\n  Goodbye!\n")
+            break
+        else:
+            print("\n  Invalid selection.")
 
 if __name__ == '__main__':
     main()

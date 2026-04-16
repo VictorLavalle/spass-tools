@@ -104,16 +104,16 @@ If you omit the password argument, it will be prompted interactively.
 
 ## CSV Format
 
-The CSV file must have these columns:
+The tool auto-detects columns from the most common password managers:
 
-| Column | Description |
-|--------|-------------|
-| `Title` | Name of the site or app |
-| `URL` | Website or app URL |
-| `Username` | Login username or email |
-| `Password` | Password |
-| `Notes` | Optional notes |
-| `OTPAuth` | Optional OTP auth URI |
+| Source | Columns |
+|--------|---------|
+| Apple Passwords (Mac) | `Title,URL,Username,Password,Notes,OTPAuth` |
+| Google Passwords | `name,url,username,password,note` |
+| Chrome | `name,url,username,password,note` |
+| Brave | `name,url,username,password,note` |
+
+Any CSV with similar column names will work — the tool matches columns case-insensitively.
 
 ---
 

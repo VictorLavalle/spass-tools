@@ -141,6 +141,8 @@ def main():
             spass_path = open_file_dialog("Select .spass file", [("Samsung Pass", "*.spass"), ("All files", "*.*")])
             if not spass_path:
                 spass_path = input("  .spass file path: ").strip().strip("'\"")
+            else:
+                print(f"  Selected: {spass_path}")
 
         default_csv = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'passwords.csv')
         print(f"\n  Default output: {default_csv}")
@@ -151,6 +153,8 @@ def main():
             csv_path = save_file_dialog("Save CSV file", [("CSV", "*.csv")], ".csv", "passwords.csv")
             if not csv_path:
                 csv_path = input("  Output CSV path: ").strip().strip("'\"")
+            else:
+                print(f"  Selected: {csv_path}")
         else:
             csv_path = default_csv
 

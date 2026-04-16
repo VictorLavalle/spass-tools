@@ -3,3 +3,7 @@
 __pycache__/
 *.pyc
 .DS_Store
+
+# Allow example files
+!examples/*.spass
+!examples/*.csv

@@ -1,5 +1,10 @@
 # spass-tools
 
+[![License: MIT](https://img.shields.io/github/license/VictorLavalle/spass-tools)](LICENSE)
+[![Python 3.8+](https://img.shields.io/badge/python-3.8%2B-blue)](https://www.python.org/downloads/)
+[![Release](https://img.shields.io/github/v/release/VictorLavalle/spass-tools)](https://github.com/VictorLavalle/spass-tools/releases)
+[![CI](https://github.com/VictorLavalle/spass-tools/actions/workflows/ci.yml/badge.svg)](https://github.com/VictorLavalle/spass-tools/actions/workflows/ci.yml)
+
 Encrypt and decrypt Samsung Pass `.spass` files. Convert passwords between `.spass` and CSV formats.
 
 ## Quick Start

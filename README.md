@@ -34,41 +34,40 @@ Or download as ZIP from the [releases page](https://github.com/VictorLavalle/spa
 
 ### macOS / Linux
 
-**Decrypt** a `.spass` file to CSV:
+Run the unified tool:
 ```bash
-./decrypt.sh
+./spass_tools.sh
 ```
 
-**Encrypt** a CSV file to `.spass`:
+Or run encrypt/decrypt directly:
 ```bash
-./encrypt.sh
+./decrypt.sh    # .spass → CSV
+./encrypt.sh    # CSV → .spass
 ```
-
-Both scripts will:
-1. Check that Python is installed
-2. Auto-install dependencies if needed
-3. Ask for file paths and password interactively
 
 ### Windows
 
-**Decrypt**: Double-click `decrypt.bat`
+Double-click `spass_tools.bat`
 
-**Encrypt**: Double-click `encrypt.bat`
+Or run individually: `decrypt.bat` / `encrypt.bat`
+
+### All scripts will:
+1. Check that Python is installed
+2. Auto-install dependencies if needed
+3. Auto-detect files in the current folder
+4. Open a file browser if you need to pick a different file
+5. Ask for the password securely (hidden input)
 
 ### Advanced (command line)
 
 ```bash
-# Install dependencies manually
 pip3 install -r requirements.txt
 
-# Decrypt with arguments
 python3 spass_to_csv.py backup.spass passwords.csv "mypassword"
-
-# Encrypt with arguments
 python3 csv_to_spass.py passwords.csv backup.spass "mypassword"
 ```
 
-If you omit the password argument, it will be prompted securely (hidden input).
+If you omit the password argument, it will be prompted interactively.
 
 ---
 

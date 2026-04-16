@@ -7,6 +7,19 @@
 
 Encrypt and decrypt Samsung Pass `.spass` files. Convert passwords between `.spass` and CSV formats.
 
+## Table of Contents
+
+- [Quick Start](#quick-start)
+- [Exporting from Samsung Pass](#exporting-from-samsung-pass)
+- [Usage](#usage)
+- [Importing into Samsung Pass](#importing-into-samsung-pass)
+- [CSV Format](#csv-format)
+- [.spass Format Reference](#spass-format-reference)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+- [Acknowledgments](#acknowledgments)
+- [License](#license)
+
 ## Quick Start
 
 ### Prerequisites
@@ -127,62 +140,29 @@ Any CSV with similar column names will work — the tool matches columns case-in
 
 ## `.spass` Format Reference
 
-### Encryption
-| Parameter | Value |
-|-----------|-------|
-| Algorithm | AES-256-CBC |
-| Key derivation | PBKDF2-HMAC-SHA256 |
-| Iterations | 70,000 |
-| Salt | 20 random bytes |
-| IV | 16 random bytes |
-| Padding | PKCS7 |
-| File encoding | `base64(salt + iv + encrypted_data)` |
+See [docs/FORMAT.md](docs/FORMAT.md) for the full `.spass` file format specification, including encryption parameters, internal structure, and all 35 password record fields.
 
-### Internal Structure
-Line separator: `\r\n` (CRLF)
+---
 
-```
-30                                    ← format version
-true;false;false;false                ← modules (passwords;cards;addresses;notes)
-false                                 ← unknown field (new in v25+)
-next_table                            ← section delimiter
-_id;origin_url;action_url;...         ← header (35 semicolon-separated fields)
-<base64>;<base64>;...                 ← data rows (each field base64-encoded)
-```
+## Troubleshooting
 
-### Password Record Fields (35 total)
-| # | Field | Value |
-|---|-------|-------|
-| 0 | `_id` | Incremental ID |
-| 1 | `origin_url` | Site URL |
-| 2 | `action_url` | `&&&NULL&&&` |
-| 3 | `username_element` | empty |
-| 4 | `username_value` | Username |
-| 5 | `id_tz_enc` | `&&&NULL&&&` |
-| 6 | `password_element` | empty |
-| 7 | `password_value` | Password |
-| 8 | `pw_tz_enc` | `&&&NULL&&&` |
-| 9 | `host_url` | Same as origin_url |
-| 10 | `ssl_valid` | `0` |
-| 11 | `preferred` | `0` |
-| 12 | `blacklisted_by_user` | `0` |
-| 13 | `use_additional_auth` | `1` |
-| 14 | `cm_api_support` | `&&&NULL&&&` |
-| 15 | `created_time` | Timestamp (ms) |
-| 16 | `modified_time` | Timestamp (ms) |
-| 17 | `title` | Site/app name |
-| 18 | `favicon` | PNG bytes or empty |
-| 19 | `source_type` | `2` |
-| 20 | `app_name` | App name |
-| 21 | `package_name` | Android package or empty |
-| 22 | `package_signature` | Package signature or empty |
-| 23–30 | `reserved_1`–`reserved_8` | `&&&NULL&&&` (except `reserved_2` = `0`) |
-| 31 | `credential_memo` | Notes |
-| 32 | `otp` | OTP auth URI |
-| 33 | `root_id` | `&&&NULL&&&` |
-| 34 | `parent_id` | `&&&NULL&&&` |
+| Problem | Solution |
+|---------|----------|
+| `Wrong password or corrupted file` | Double-check the password. It must match exactly what was used during export/encryption. |
+| `Python not found` | Install [Python 3.8+](https://www.python.org/downloads/). On Windows, check "Add to PATH" during install. |
+| `No module named 'cryptography'` | Run `pip3 install -r requirements.txt` or let the scripts auto-install dependencies. |
+| `No .spass/.csv files found` | Place the file in the same folder as the scripts, or use the file browser when prompted. |
+| `Password must include at least 3 of...` | Samsung Pass requires 8+ characters with at least 3 of: uppercase, lowercase, numbers, special characters. |
 
-> **Note**: Null fields use `&&&NULL&&&` (3 ampersands each side). Fields `username_element` and `password_element` are actual empty strings.
+---
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to contribute, report bugs, and submit pull requests.
+
+For security vulnerabilities, see [SECURITY.md](SECURITY.md).
+
+This project follows a [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ---
 

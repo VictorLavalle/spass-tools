@@ -119,7 +119,7 @@ def open_file_dialog(title, filetypes):
     except:
         return ''
 
-def save_file_dialog(title, filetypes, defaultext):
+def save_file_dialog(title, filetypes, defaultext, initialfile=''):
     """Open a native save file dialog. Returns path or empty string."""
     try:
         import tkinter as tk
@@ -127,7 +127,7 @@ def save_file_dialog(title, filetypes, defaultext):
         root = tk.Tk()
         root.withdraw()
         root.attributes('-topmost', True)
-        path = filedialog.asksaveasfilename(title=title, filetypes=filetypes, defaultextension=defaultext)
+        path = filedialog.asksaveasfilename(title=title, filetypes=filetypes, defaultextension=defaultext, initialfile=initialfile)
         root.destroy()
         return path
     except:
@@ -185,7 +185,7 @@ def main():
         print(f"    2. Choose a different location")
         choice = input("  Select [1]: ").strip()
         if choice == '2':
-            spass_path = save_file_dialog("Save .spass file", [("Samsung Pass", "*.spass")], ".spass")
+            spass_path = save_file_dialog("Save .spass file", [("Samsung Pass", "*.spass")], ".spass", "output.spass")
             if not spass_path:
                 spass_path = input("  Output .spass path: ").strip().strip("'\"")
         else:
